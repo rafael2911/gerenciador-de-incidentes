@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Listagem de usuários</title>
+
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.2/css/all.css" />
+
+</head>
+<body>
+	<div class="container">
+		<h1>Listagem de usuários</h1>
+		<table class="table table-sm">
+			<thead>
+				<tr>
+					<th>Email</th>
+					<th>Nome</th>
+					<th>Sobrenome</th>
+					<th>Status</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="usuario : ${usuarios}">
+					<td th:text="${usuario.email}">nome.sobrenome@exemplo.com</td>
+					<td th:text="${usuario.nome}">nome</td>
+					<td th:text="${usuario.sobrenome}">sobrenome</td>
+					<td th:text="${usuario.status}">status</td>
+					<td>
+						<a th:href="@{'/usuario/editar/'+${usuario.email}}" href="#" class="btn btn-primary btn-sm">
+							<i class="far fa-edit"></i>
+						</a>
+						<a th:href="@{'/usuario/remover/'+${usuario.email}}" href="#" class="btn btn-danger btn-sm">
+							<i class="far fa-trash-alt"></i>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

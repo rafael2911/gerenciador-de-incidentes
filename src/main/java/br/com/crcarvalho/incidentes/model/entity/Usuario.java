@@ -126,4 +126,10 @@ public class Usuario implements UserDetails {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [email=" + email + ", senha=" + senha + ", nome=" + nome + ", sobrenome=" + sobrenome
+				+ ", status=" + status + ", roles=" + roles + "]";
+	}
+
 }

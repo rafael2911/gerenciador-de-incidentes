@@ -22,7 +22,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()
-			.antMatchers("/webjars/bootstrap/4.3.1/css/bootstrap.min.css").permitAll()
+			.antMatchers("/webjars/**").permitAll()
 			.antMatchers("/h2/**").permitAll()
 			.anyRequest().authenticated()
 			.and().formLogin().permitAll();
