@@ -4,6 +4,14 @@ public class Origem {
 	
 	private Long id;
 	private String descricao;
+	
+	public Origem() {
+		
+	}
+
+	public Origem(String descricao) {
+		this.descricao = descricao;
+	}
 
 	public Long getId() {
 		return id;

@@ -11,6 +11,8 @@ import javax.persistence.Enumerated;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
+import br.com.crcarvalho.incidentes.exception.UsuarioInvalidoException;
+
 public class Chamado {
 
 	private Long id;
@@ -32,6 +34,7 @@ public class Chamado {
 	public Chamado() {
 		this.iteracoes = new ArrayList<Iteracao>();
 		this.dataAbertura = LocalDateTime.now();
+		this.status = StatusChamado.ABERTO;
 	}
 
 	public Long getId() {
@@ -60,10 +63,6 @@ public class Chamado {
 
 	public LocalDateTime getDataAbertura() {
 		return dataAbertura;
-	}
-
-	public void setDataAbertura(LocalDateTime dataAbertura) {
-		this.dataAbertura = dataAbertura;
 	}
 
 	public LocalDateTime getDataEncerramento() {
@@ -103,7 +102,13 @@ public class Chamado {
 	}
 
 	public void setRequerente(Usuario requerente) {
+		
+		if(!requerente.getRoles().contains(new Role("USER"))) {
+			throw new UsuarioInvalidoException("Somente usuários com o perfil USER podem abrir chamados.");
+		}
+		
 		this.requerente = requerente;
+		
 	}
 
 	public Usuario getAtendente() {

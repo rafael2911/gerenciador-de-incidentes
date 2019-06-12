@@ -4,6 +4,15 @@ public class Sla {
 	
 	private String descricao;
 	private int dias;
+	
+	public Sla() {
+
+	}
+
+	public Sla(String descricao, int dias) {
+		this.descricao = descricao;
+		this.dias = dias;
+	}
 
 	public String getDescricao() {
 		return descricao;
