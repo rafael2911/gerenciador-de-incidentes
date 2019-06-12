@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
 <head>
 <meta charset="UTF-8">
-<title>Listagem de usuários</title>
-
-<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.2/css/all.css" />
 
 </head>
 <body>
-	<div class="container">
-		<h1>Listagem de usuários</h1>
+	<h1 layout:fragment="header">
+		Listagem de usuários
+	</h1>
+	<div layout:fragment="content">
 		<table class="table table-sm">
 			<thead>
 				<tr>
@@ -39,5 +38,6 @@
 			</tbody>
 		</table>
 	</div>
+	
 </body>
 </html>

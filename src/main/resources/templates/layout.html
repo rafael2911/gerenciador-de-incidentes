@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Gerenciador de Incidentes</title>
+
+<link rel="stylesheet" type="text/css" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/webjars/font-awesome/5.8.2/css/all.css" />
+
+</head>
+<body>
+	<div>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		  <a class="navbar-brand" href="#">Incidentes</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    <ul class="navbar-nav mr-auto">
+		      <li class="nav-item dropdown">
+		        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		          Usuário
+		        </a>
+		        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+		          <a class="dropdown-item" href="#" th:href="@{/usuario/form}">Cadastro</a>
+		          <a class="dropdown-item" href="#" th:href="@{/usuario}">Listagem</a>
+		        </div>
+		      </li>
+		      <li class="nav-item">
+		        <a class="nav-link" href='<c:url value="/tarefa/form" />'>Cadastro de Tarefas</a>
+		      </li>
+		      <!-- 
+		      <security:authorize access="hasRole('ROLE_ADMIN')">
+			      <li class="nav-item dropdown">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          Usuario
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href='<c:url value="/usuario/list" />'>Listagem</a>
+			          <a class="dropdown-item" href='<c:url value="/usuario/form" />'>Cadastro</a>
+			        </div>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href='<c:url value="/role/form" />'>Role</a>
+			      </li>
+			  </security:authorize>
+			   -->
+		    </ul>
+		    <ul class="navbar-nav mr-rigth">
+		    	<li class="nav-item dropdown dropleft">
+			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          <!--
+			          <security:authentication property="principal" var="usuario" />
+					  ${usuario.nome }
+					   -->
+			        </a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+			          <a class="dropdown-item" href='<c:url value="/logout" />'>Sair</a>
+			          <a class="dropdown-item" href='<c:url value="/usuario/alteraSenha" />'>Alterar Senha</a>
+			        </div>
+			      </li>
+			</ul>
+		  </div>
+		</nav>
+		
+		<div class="container">
+			<h1 layout:fragment="header">cabeçalho falso</h1>
+			<div layout:fragment="content">content falso</div>
+		</div>
+		
+	</div>
+	
+	<script type="text/javascript" src="/webjars/jquery/3.3.1/dist/jquery.min.js"></script>
+	<script type="text/javascript" src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
