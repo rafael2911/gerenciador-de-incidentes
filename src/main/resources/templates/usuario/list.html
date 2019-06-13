@@ -36,10 +36,10 @@
 					<td th:text="${usuario.sobrenome}">sobrenome</td>
 					<td th:text="${usuario.status}">status</td>
 					<td>
-						<a th:href="@{'/usuario/editar/'+${usuario.email}}" href="#" class="btn btn-primary btn-sm">
+						<a th:href="@{'/usuario/editar/'+${usuario.email}}+'/'" href="#" class="btn btn-primary btn-sm">
 							<i class="far fa-edit"></i>
 						</a>
-						<a th:href="@{'/usuario/remover/'+${usuario.email}}" href="#" class="btn btn-danger btn-sm">
+						<a th:href="@{'/usuario/remover/'+${usuario.email}}+'/'" href="#" class="btn btn-danger btn-sm">
 							<i class="far fa-trash-alt"></i>
 						</a>
 					</td>

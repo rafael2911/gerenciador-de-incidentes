@@ -14,7 +14,8 @@
 	<div layout:fragment="content">
 		
 		<form action="#" th:action="@{/usuario/(form)}" th:object="${usuario}" method="post">
-			<div class="form-group">
+			<input type="hidden" name="email" th:field="*{email}" th:if="${email} != null">
+			<div th:if="${email} == null" class="form-group">
 				<label>E-mail</label>
 				<input type="email" name="email" th:field="*{email}" class="form-control form-control-sm" placeholder="email@exemplo.com">
 			</div>

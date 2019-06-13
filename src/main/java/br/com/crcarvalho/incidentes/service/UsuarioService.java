@@ -33,5 +33,11 @@ public class UsuarioService implements UserDetailsService {
 		
 		return this.usuarioRepository.save(usuario);
 	}
+	
+	public Usuario find(String email) {
+		
+		return this.usuarioRepository.findOne(email);
+
+	}
 
 }

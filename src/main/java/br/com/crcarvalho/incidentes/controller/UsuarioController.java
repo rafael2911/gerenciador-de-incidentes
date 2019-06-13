@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -43,6 +44,17 @@ public class UsuarioController {
 		attr.addFlashAttribute("message", "Usuário cadastrado com sucesso.");
 		
 		return new ModelAndView("redirect:/usuario");
+	}
+	
+	@GetMapping("editar/{email}")
+	public ModelAndView editar(@PathVariable("email") String email) {
+
+		Usuario usuario = usuarioService.find(email);
+		
+		System.out.println("Email: " + email);
+		System.out.println("Usuario: " + usuario);
+
+		return new ModelAndView("usuario/form", "usuario", usuario);
 	}
 	
 }
