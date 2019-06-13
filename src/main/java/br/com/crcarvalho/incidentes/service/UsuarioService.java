@@ -28,5 +28,10 @@ public class UsuarioService implements UserDetailsService {
 		
 		return this.usuarioRepository.findAll();
 	}
+	
+	public Usuario save(Usuario usuario) {
+		
+		return this.usuarioRepository.save(usuario);
+	}
 
 }

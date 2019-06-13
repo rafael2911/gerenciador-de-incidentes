@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+	
+	<h1 layout:fragment="header">
+		Cadastro de Usuários
+	</h1>
+	
+	<div layout:fragment="content">
+		
+		<form action="#" th:action="@{/usuario/(form)}" th:object="${usuario}" method="post">
+			<div class="form-group">
+				<label>E-mail</label>
+				<input type="email" name="email" th:field="*{email}" class="form-control form-control-sm" placeholder="email@exemplo.com">
+			</div>
+			<div class="form-group">
+				<label>Nome</label>
+				<input type="text" name="nome" th:field="*{nome}" class="form-control form-control-sm" placeholder="nome">
+			</div>
+			<div class="form-group">
+				<label>Sobrenome</label>
+				<input type="text" name="sobrenome" th:field="*{sobrenome}" class="form-control form-control-sm" placeholder="sobrenome">
+			</div>
+			
+			<div class="form-group">
+				<label>Senha</label>
+				<input type="password" name="senha" th:field="*{senha}" class="form-control form-control-sm">
+			</div>
+			
+			<div class="form-group">
+				<label>Status</label>
+				<select name="status" th:field="*{status}" class="form-control form-control-sm">
+					<option value="" disabled selected></option>
+					<option value="ATIVO">Ativo</option>
+					<option value="INATIVO">Inativo</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Roles</label>
+				<select name="roles" th:field="*{roles}" class="form-control form-control-sm" multiple="multiple">
+					<option value="ADMIN">Admin</option>
+					<option value="TECNICO">Tecnico</option>
+					<option value="USER">User</option>
+				</select>
+			</div>
+			<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+			<br/>
+			<br/>
+		</form>
+		
+	</div>
+	
+</body>
+</html>

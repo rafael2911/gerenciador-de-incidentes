@@ -10,6 +10,18 @@
 		Listagem de usuários
 	</h1>
 	<div layout:fragment="content">
+		<div th:if="${message}" class="alert alert-success" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+			<label th:text="${message}">message</label>
+		</div>
+		<!--  
+		<c:if test="${ not empty erro }">
+			<div class="alert alert-danger" role="alert">
+				<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+				${erro }
+			</div>
+		</c:if>
+		-->
 		<table class="table table-sm">
 			<thead>
 				<tr>

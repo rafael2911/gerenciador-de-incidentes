@@ -62,5 +62,10 @@ public class Role implements GrantedAuthority {
 		
 		return this.nome;
 	}
+
+	@Override
+	public String toString() {
+		return "Role [nome=" + nome + "]";
+	}
 	
 }
