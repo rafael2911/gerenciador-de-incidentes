@@ -54,4 +54,13 @@ public class UsuarioController {
 		return new ModelAndView("usuario/form", "usuario", usuario);
 	}
 	
+	@GetMapping("remover/{email}")
+	public ModelAndView remover(@PathVariable("email") String email) {
+		
+		usuarioService.remove(usuarioService.find(email));
+		
+		return new ModelAndView("redirect:/usuario");
+		
+	}
+	
 }

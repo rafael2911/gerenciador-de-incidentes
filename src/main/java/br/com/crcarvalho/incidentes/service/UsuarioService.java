@@ -40,10 +40,16 @@ public class UsuarioService implements UserDetailsService {
 		Usuario usuario = this.usuarioRepository.findOne(email);
 		
 		if(usuario == null) {
-			throw new UsuarioNotFoundException("Usuário não localizado!");
+			throw new UsuarioNotFoundException("Usuário " + email + " não localizado!");
 		}
 		
 		return usuario;
+
+	}
+	
+	public void remove(Usuario usuario) {
+
+		this.usuarioRepository.delete(usuario);
 
 	}
 
