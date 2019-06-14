@@ -2,8 +2,11 @@ package br.com.crcarvalho.incidentes.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +40,11 @@ public class UsuarioController {
 	}
 	
 	@PostMapping(params = "form")
-	public ModelAndView salvar(Usuario usuario, RedirectAttributes attr) {
+	public ModelAndView salvar(@Valid Usuario usuario, BindingResult result, RedirectAttributes attr) {
+		
+		if(result.hasErrors()) {
+			return new ModelAndView("usuario/form");
+		}
 		
 		usuarioService.save(usuario);
 		

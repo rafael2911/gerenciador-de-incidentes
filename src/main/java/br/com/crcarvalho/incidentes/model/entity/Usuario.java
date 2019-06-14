@@ -9,10 +9,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Entity
 public class Usuario implements UserDetails {
@@ -23,17 +25,26 @@ public class Usuario implements UserDetails {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@NotBlank
 	private String email;
 	
+	@NotBlank
+	@Length(min=6, message="A senha deve conter no mínimo {min} caracteres.")
 	private String senha;
 	
+	@NotBlank
+	@Length(min=3, max=60, message="O tamanho do nome deve ser entre {min} e {max} caracteres")
 	private String nome;
 	
+	@NotBlank
+	@Length(min=3, max=60, message="O tamanho do nome deve ser entre {min} e {max} caracteres")
 	private String sobrenome;
 	
+	@NotNull(message="Campo status é obrigatório")
 	@Enumerated(EnumType.STRING)
 	private StatusUsuario status;
 	
+	@NotNull(message="Campo role é obrigatório")
 	@ManyToMany(fetch = FetchType.EAGER)
 	private List<Role> roles;
 
@@ -49,9 +60,8 @@ public class Usuario implements UserDetails {
 		return senha;
 	}
 
-	public void setSenha(String senha) {
-		BCryptPasswordEncoder crypt = new BCryptPasswordEncoder(); 
-		this.senha = crypt.encode(senha);
+	public void setSenha(String senha) { 
+		this.senha = senha;
 	}
 
 	public String getNome() {

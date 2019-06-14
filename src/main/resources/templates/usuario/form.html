@@ -18,28 +18,32 @@
 			<div th:if="${email} == null" class="form-group">
 				<label>E-mail</label>
 				<input type="email" name="email" th:field="*{email}" class="form-control form-control-sm" placeholder="email@exemplo.com">
+				<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="label alert-danger"></div>
 			</div>
 			<div class="form-group">
 				<label>Nome</label>
 				<input type="text" name="nome" th:field="*{nome}" class="form-control form-control-sm" placeholder="nome">
+				<div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="label alert-danger"></div>
 			</div>
 			<div class="form-group">
 				<label>Sobrenome</label>
 				<input type="text" name="sobrenome" th:field="*{sobrenome}" class="form-control form-control-sm" placeholder="sobrenome">
+				<div th:if="${#fields.hasErrors('sobrenome')}" th:errors="*{sobrenome}" class="label alert-danger"></div>
 			</div>
 			
 			<div class="form-group">
 				<label>Senha</label>
 				<input type="password" name="senha" th:field="*{senha}" class="form-control form-control-sm">
+				<div th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}" class="label alert-danger"></div>
 			</div>
 			
 			<div class="form-group">
 				<label>Status</label>
 				<select name="status" th:field="*{status}" class="form-control form-control-sm">
-					<option value="" disabled selected></option>
 					<option value="ATIVO">Ativo</option>
 					<option value="INATIVO">Inativo</option>
 				</select>
+				<div th:if="${#fields.hasErrors('status')}" th:errors="*{status}" class="label alert-danger"></div>
 			</div>
 			<div class="form-group">
 				<label>Roles</label>
@@ -48,6 +52,7 @@
 					<option value="TECNICO">Tecnico</option>
 					<option value="USER">User</option>
 				</select>
+				<div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="label alert-danger"></div>
 			</div>
 			<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
 			<br/>
