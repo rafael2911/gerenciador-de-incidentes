@@ -48,9 +48,9 @@
 			<div class="form-group">
 				<label>Roles</label>
 				<select name="roles" th:field="*{roles}" class="form-control form-control-sm" multiple="multiple">
-					<option value="ADMIN">Admin</option>
-					<option value="TECNICO">Tecnico</option>
-					<option value="USER">User</option>
+					<option value="ROLE_ADMIN">Admin</option>
+					<option value="ROLE_TECNICO">Tecnico</option>
+					<option value="ROLE_USER">User</option>
 				</select>
 				<div th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}" class="label alert-danger"></div>
 			</div>
