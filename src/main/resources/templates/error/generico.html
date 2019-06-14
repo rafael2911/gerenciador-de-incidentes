@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Página de Erro</title>
+</head>
+<body>
+	<section id="index-section" class="container middle">
+        <h2>Erro na aplicação!!!</h2>
+    </section>
+
+   	<label th:text="${exception.message}"></label>
+   
+</body>
+</html>

@@ -7,9 +7,8 @@ import java.util.Arrays;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import br.com.crcarvalho.incidentes.exception.UsuarioInvalidoException;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -39,7 +38,7 @@ public class ChamadoTests {
 		
 	}
 	
-	@Test(expected=UsuarioInvalidoException.class)
+	@Test(expected=AccessDeniedException.class)
 	public void chamadoNaoPodeSerCriadoPorUsuarioSemPerfilUser() {
 		Role admin = new Role("ADMIN");
 		

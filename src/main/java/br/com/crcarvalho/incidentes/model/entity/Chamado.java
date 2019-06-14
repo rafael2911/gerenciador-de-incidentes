@@ -10,8 +10,7 @@ import javax.persistence.Enumerated;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
-
-import br.com.crcarvalho.incidentes.exception.UsuarioInvalidoException;
+import org.springframework.security.access.AccessDeniedException;
 
 public class Chamado {
 
@@ -104,7 +103,7 @@ public class Chamado {
 	public void setRequerente(Usuario requerente) {
 		
 		if(!requerente.getRoles().contains(new Role("USER"))) {
-			throw new UsuarioInvalidoException("Somente usuários com o perfil USER podem abrir chamados.");
+			throw new AccessDeniedException("Somente usuários com o perfil USER podem abrir chamados.");
 		}
 		
 		this.requerente = requerente;

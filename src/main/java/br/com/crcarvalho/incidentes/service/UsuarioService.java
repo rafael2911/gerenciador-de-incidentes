@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import br.com.crcarvalho.incidentes.exception.UsuarioNotFoundException;
 import br.com.crcarvalho.incidentes.model.entity.Usuario;
 import br.com.crcarvalho.incidentes.model.repository.UsuarioRepository;
 
@@ -36,7 +37,13 @@ public class UsuarioService implements UserDetailsService {
 	
 	public Usuario find(String email) {
 		
-		return this.usuarioRepository.findOne(email);
+		Usuario usuario = this.usuarioRepository.findOne(email);
+		
+		if(usuario == null) {
+			throw new UsuarioNotFoundException("Usuário não localizado!");
+		}
+		
+		return usuario;
 
 	}
 

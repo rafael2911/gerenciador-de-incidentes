@@ -50,9 +50,6 @@ public class UsuarioController {
 	public ModelAndView editar(@PathVariable("email") String email) {
 
 		Usuario usuario = usuarioService.find(email);
-		
-		System.out.println("Email: " + email);
-		System.out.println("Usuario: " + usuario);
 
 		return new ModelAndView("usuario/form", "usuario", usuario);
 	}
