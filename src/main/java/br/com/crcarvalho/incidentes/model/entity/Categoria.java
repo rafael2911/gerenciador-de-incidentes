@@ -25,7 +25,8 @@ public class Categoria {
 		
 	}
 
-	public Categoria(String descricao) {
+	public Categoria(Long id, String descricao) {
+		this.id = id;
 		this.descricao = descricao;
 	}
 

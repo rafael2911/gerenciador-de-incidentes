@@ -29,8 +29,8 @@ public class ChamadoTests {
 		chamado.setTitulo("Chamado de teste");
 		chamado.setDescricao("Testando inclusao de chamado");
 		chamado.setRequerente(usuario);
-		chamado.setOrigem(new Origem("Telefone"));
-		chamado.setCategoria(new Categoria("Office"));
+		chamado.setOrigem(new Origem(1L, "Telefone"));
+		chamado.setCategoria(new Categoria(1L, "Office"));
 		chamado.setSla(new Sla("4_DIAS", 4));
 		chamado.setStatus(StatusChamado.ABERTO);
 		
@@ -53,8 +53,8 @@ public class ChamadoTests {
 		chamado.setTitulo("Chamado de teste");
 		chamado.setDescricao("Testando inclusao de chamado");
 		chamado.setRequerente(usuario);
-		chamado.setOrigem(new Origem("Telefone"));
-		chamado.setCategoria(new Categoria("Office"));
+		chamado.setOrigem(new Origem(1L, "Telefone"));
+		chamado.setCategoria(new Categoria(1L, "Office"));
 		chamado.setSla(new Sla("4_DIAS", 4));
 		
 		assertEquals(false, chamado.getRequerente().getRoles().contains(new Role("USER")));

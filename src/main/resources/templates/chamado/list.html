@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+	<h1 layout:fragment="header">
+		Listagem de chamados
+	</h1>
+	<div layout:fragment="content">
+		<div th:if="${message}" class="alert alert-success" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+			<label th:text="${message}">message</label>
+		</div>
+		<div th:if="${erro}" class="alert alert-danger" role="alert">
+			<a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+			<label th:text="${erro}">erro</label>
+		</div>
+
+		<table class="table table-sm">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Título</th>
+					<th>Status</th>
+					<th>Abertura</th>
+					<th>Requerente</th>
+					<th>Tecnico</th>
+					<th>Categoria</th>
+					<th>Ação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="chamado : ${chamados}">
+					<td th:text="${chamado.id}">id</td>
+					<td th:text="${chamado.titulo}">titulo</td>
+					<td th:text="${chamado.status}">status</td>
+					<td th:text="${chamado.dataAbertura}">data</td>
+					<td th:text="${chamado.requerente.nome}">requerente</td>
+					<td th:text="${chamado.atendente} ? #{chamado.atendente.nome} : ''">tecnico</td>
+					<td th:text="${chamado.categoria.descricao}">categoria</td>
+					<td>
+						<a th:href="@{'/chamado/detalhe/'+${chamado.id}}+'/'" href="#" class="btn btn-primary btn-sm">
+							Detalhe
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+</body>
+</html>

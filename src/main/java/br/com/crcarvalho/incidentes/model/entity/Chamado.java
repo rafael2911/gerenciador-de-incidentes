@@ -5,29 +5,77 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.security.access.AccessDeniedException;
 
+@Entity
 public class Chamado {
-
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(length=80, nullable=false)
+	@NotBlank(message="O campo título não pode ficar em branco")
+	@Length(min=6, max=80, message="O título deve conter no mínimo entre {min} e {max} caracteres.")
 	private String titulo;
+	
+	@Lob
+	@Column(nullable=false)
+	@NotBlank(message="O campo descrição não pode ficar em branco")
 	private String descricao;
+	
+	@Column(nullable=false)
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime dataAbertura;
+	
 	@DateTimeFormat(iso = ISO.DATE_TIME)
 	private LocalDateTime dataEncerramento;
+	
+	@Column(nullable=false)
 	@Enumerated(EnumType.STRING)
 	private StatusChamado status;
+	
+	@NotNull(message="Campo categoria é obrigatório.")
+	@ManyToOne
+	@JoinColumn(name="categoria", nullable=false)
 	private Categoria categoria;
+	
+	@NotNull(message="Campo origem é obrigatório.")
+	@ManyToOne
+	@JoinColumn(name="origem", nullable=false)
 	private Origem origem;
+	
+	@NotNull(message="Campo requerente é obrigatório.")
+	@ManyToOne
+	@JoinColumn(name="requerente", nullable=false)
 	private Usuario requerente;
+	
+	@ManyToOne
+	@JoinColumn(name="atendente")
 	private Usuario atendente;
+	
+	@OneToMany
 	private List<Iteracao> iteracoes;
+	
+	@ManyToOne
+	@JoinColumn(name="sla")
 	private Sla sla;
 	
 	public Chamado() {
@@ -102,7 +150,7 @@ public class Chamado {
 
 	public void setRequerente(Usuario requerente) {
 		
-		if(!requerente.getRoles().contains(new Role("USER"))) {
+		if(!requerente.getRoles().contains(new Role("ROLE_USER"))) {
 			throw new AccessDeniedException("Somente usuários com o perfil USER podem abrir chamados.");
 		}
 		
