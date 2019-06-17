@@ -62,7 +62,6 @@ public class Chamado {
 	@JoinColumn(name="origem", nullable=false)
 	private Origem origem;
 	
-	@NotNull(message="Campo requerente é obrigatório.")
 	@ManyToOne
 	@JoinColumn(name="requerente", nullable=false)
 	private Usuario requerente;

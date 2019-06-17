@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<head>
+<meta charset="UTF-8">
+
+</head>
+<body>
+	
+	<h1 layout:fragment="header">
+		Novo chamado
+	</h1>
+	
+	<div layout:fragment="content">
+		
+		<form action="#" th:action="@{/chamado/(form)}" th:object="${chamado}" method="post">
+			<input type="hidden" name="id" th:field="*{id}">
+			<div class="form-group">
+				<label>Título</label>
+				<input type="text" name="titulo" th:field="*{titulo}" class="form-control form-control-sm" placeholder="Título">
+				<div th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}" class="label alert-danger"></div>
+			</div>
+			<div class="form-group">
+				<label>Descrição</label>
+				<textarea rows="5" name="descricao" th:field="*{descricao}" class="form-control form-control-sm" placeholder="Descrição"></textarea>
+				<div th:if="${#fields.hasErrors('descricao')}" th:errors="*{descricao}" class="label alert-danger"></div>
+			</div>
+			
+			<div class="form-group">
+				<label>Categoria</label>
+				<select name="categoria" th:field="*{categoria}" class="form-control form-control-sm" >
+					<option value=""></option>
+					<option th:each="categoria : ${categorias}" th:value="${categoria.id}" th:text="${categoria.descricao}"></option>
+				</select>
+				<div th:if="${#fields.hasErrors('categoria')}" th:errors="*{categoria}" class="label alert-danger"></div>
+			</div>
+			
+			<div class="form-group">
+				<label>Origem</label>
+				<select name="origem" th:field="*{origem}" class="form-control form-control-sm">
+					<option value=""></option>
+					<option th:each="origem : ${origens}" th:value="${origem.id}" th:text="${origem.descricao}"></option>
+				</select>
+				<div th:if="${#fields.hasErrors('origem')}" th:errors="*{origem}" class="label alert-danger"></div>
+			</div>
+			
+			<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+			<br/>
+			<br/>
+		</form>
+		
+	</div>
+	
+</body>
+</html>
