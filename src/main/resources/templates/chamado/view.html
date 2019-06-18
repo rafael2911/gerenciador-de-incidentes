@@ -13,46 +13,46 @@
 		<div class="row">
 			<div class="col-sm-1"></div>
     		<div class="col-sm-10">
-      			<div>
-					<div class="row border">
-						<div class="col-sm-1">
+      			<table class="table table-sm">
+					<tr class="row" style="margin: 0">
+						<td class="col-sm-1">
 							N°: <label class="font-weight-bold" th:text="${chamado.id}"></label>
-						</div>
-						<div class="col-sm-9">
+						</td>
+						<td class="col-sm-9">
 							Título: <label class="font-weight-bold" th:text="${chamado.titulo}"></label>
-						</div>
-						<div class="col-sm-2">
+						</td>
+						<td class="col-sm-2">
 							Status: <label class="font-weight-bold" th:text="${chamado.status}"></label>
-						</div>
-					</div>
-					<div class="row border">
-						<div class="col-sm-4">
+						</td>
+					</tr>
+					<tr class="row" style="margin: 0">
+						<td class="col-sm-4">
 							Requerente: <label class="font-weight-bold" th:text="${chamado.requerente} ? ${chamado.requerente.nome}
 								+ ' ' +${chamado.requerente.sobrenome} : ''"></label>
-						</div>
-						<div class="col-sm-4">
+						</td>
+						<td class="col-sm-4">
 							Técnico: <label class="font-weight-bold" th:text="${chamado.atendente} ? ${chamado.atendente.nome}
 								+ ' ' +${chamado.atendente.sobrenome} : ''"></label>
-						</div>
-						<div class="col-sm-4">
+						</td>
+						<td class="col-sm-4">
 							Categoria: <label class="font-weight-bold" th:text="${chamado.categoria.descricao}"></label>
-						</div>
-					</div>
-					<div class="row border">
-						<div class="col-sm-5">
+						</td>
+					</tr>
+					<tr class="row" style="margin: 0">
+						<td class="col-sm-5">
 							Data Abertura: <label class="font-weight-bold" th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy hh:mm')}"></label>
-						</div>
-						<div class="col-sm-5">
+						</td>
+						<td class="col-sm-5">
 							Data Encerramento: <label class="font-weight-bold" th:text="${#temporals.format(chamado.dataEncerramento, 'dd/MM/yyyy hh:mm')}"></label>
-						</div>
-						<div class="col-sm-2">
+						</td>
+						<td class="col-sm-2">
 							SLA: <label class="font-weight-bold" th:text="${chamado.sla}"></label>
-						</div>
-					</div>
-					<div class="row border">
-						<div class="col-sm-12">
+						</td>
+					</tr>
+					<tr class="row" style="margin: 0">
+						<td class="col-sm-12">
 							Descrição:<br>
-							<p th:text="${chamado.descricao}">
+							<p class="text-justify" th:text="${chamado.descricao}">
 								Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 								Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
 								when an unknown printer took a galley of type and scrambled it to make a type
@@ -62,9 +62,9 @@
 								and more recently with desktop publishing software like Aldus PageMaker including
 								versions of Lorem Ipsum.
 							</p>
-						</div>
-					</div>
-				</div>
+						</td>
+					</tr>
+				</table>
 				<div class="row">
 					<div class="col-sm-12">
 						<form action="">
