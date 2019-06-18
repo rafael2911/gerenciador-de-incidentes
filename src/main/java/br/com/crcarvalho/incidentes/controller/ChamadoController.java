@@ -53,7 +53,12 @@ public class ChamadoController {
 	public ModelAndView salvar(@Valid Chamado chamado, BindingResult result, @AuthenticationPrincipal Usuario usuario, RedirectAttributes attr) {
 		
 		if(result.hasErrors()) {
-			return new ModelAndView("chamado/form");
+			ModelAndView modelAndView = new ModelAndView("chamado/form");
+			
+			modelAndView.addObject("categorias", categoriaRepository.findAll());
+			modelAndView.addObject("origens", origemRepository.findAll());
+			
+			return modelAndView;
 		}
 		
 		chamado.setRequerente(usuario);
