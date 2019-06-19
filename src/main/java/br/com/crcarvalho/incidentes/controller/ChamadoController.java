@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.crcarvalho.incidentes.model.entity.Chamado;
-import br.com.crcarvalho.incidentes.model.entity.Iteracao;
+import br.com.crcarvalho.incidentes.model.entity.Interacao;
 import br.com.crcarvalho.incidentes.model.entity.Usuario;
 import br.com.crcarvalho.incidentes.model.repository.CategoriaRepository;
 import br.com.crcarvalho.incidentes.model.repository.ChamadoRepository;
@@ -74,7 +74,7 @@ public class ChamadoController {
 	}
 	
 	@GetMapping("detalhe/{idChamado}")
-	public ModelAndView detalhe(@PathVariable("idChamado") Long idChamado, @ModelAttribute Iteracao iteracao) {
+	public ModelAndView detalhe(@PathVariable("idChamado") Long idChamado, @ModelAttribute Interacao interacao) {
 		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
 		
@@ -82,7 +82,7 @@ public class ChamadoController {
 	}
 	
 	@PostMapping(value = "{idChamado}/interagir", params = "form")
-	public ModelAndView registraInteracao(@Valid Iteracao iteracao, BindingResult result ,@PathVariable("idChamado") Long idChamado, @AuthenticationPrincipal Usuario usuario) {
+	public ModelAndView registraInteracao(@Valid Interacao interacao, BindingResult result ,@PathVariable("idChamado") Long idChamado, @AuthenticationPrincipal Usuario usuario) {
 		
 		if(result.hasErrors()) {
 			return new ModelAndView("chamado/view", "chamado", chamadoRepository.findOne(idChamado));
@@ -91,9 +91,9 @@ public class ChamadoController {
 		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
 		
-		iteracao.setUsuario(usuario);
+		interacao.setUsuario(usuario);
 		
-		chamado.adicionaIteracao(iteracao);
+		chamado.adicionaInteracao(interacao);
 		
 		chamadoRepository.save(chamado);
 		

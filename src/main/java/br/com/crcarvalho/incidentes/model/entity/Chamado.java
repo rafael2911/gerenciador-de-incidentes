@@ -74,14 +74,14 @@ public class Chamado {
 	
 	@OneToMany
 	@Cascade(CascadeType.MERGE)
-	private List<Iteracao> iteracoes;
+	private List<Interacao> interacoes;
 	
 	@ManyToOne
 	@JoinColumn(name="sla")
 	private Sla sla;
 	
 	public Chamado() {
-		this.iteracoes = new ArrayList<Iteracao>();
+		this.interacoes = new ArrayList<Interacao>();
 		this.dataAbertura = LocalDateTime.now();
 		this.status = StatusChamado.ABERTO;
 	}
@@ -168,12 +168,12 @@ public class Chamado {
 		this.atendente = atendente;
 	}
 
-	public List<Iteracao> getIteracoes() {
-		return Collections.unmodifiableList(iteracoes);
+	public List<Interacao> getInteracoes() {
+		return Collections.unmodifiableList(interacoes);
 	}
 	
-	public void adicionaIteracao(Iteracao iteracao) {
-		this.iteracoes.add(iteracao);
+	public void adicionaInteracao(Interacao interacao) {
+		this.interacoes.add(interacao);
 	}
 
 	public Sla getSla() {

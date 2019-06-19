@@ -67,7 +67,7 @@
 				</table>
 				<div class="row">
 					<div class="col-sm-12">
-						<form action="#" th:action="@{'/chamado/'+${chamado.id}+'/interagir/'(form)}" th:object="${iteracao}" method="post">
+						<form action="#" th:action="@{'/chamado/'+${chamado.id}+'/interagir/'(form)}" th:object="${interacao}" method="post">
 							<div class="form-group">
 								<label>Mensagem</label>
 								<textarea th:field="*{mensagem}" name="mensagem" rows="5" class="form-control"></textarea>
@@ -81,15 +81,15 @@
 				</div>
 				<br>
 				<table class="table table-sm table-bordered table-striped">
-					<tr class="row" style="margin: 0" th:each="iteracao : ${chamado.iteracoes}">
+					<tr class="row" style="margin: 0" th:each="interacao : ${chamado.interacoes}">
 						<td class="col-sm-12">
 							<div class="row">
-								<div class="col-2">N° <label th:text="${iteracao.id}"></label></div>
-								<div class="col-5">Data: <label th:text="${#temporals.format(iteracao.data, 'dd/MM/yyyy hh:mm')}"></label></div>
-								<div class="col-5">Autor: <label th:text="${iteracao.usuario.nome}"></label></div>
+								<div class="col-2">N° <label th:text="${interacao.id}"></label></div>
+								<div class="col-5">Data: <label th:text="${#temporals.format(interacao.data, 'dd/MM/yyyy hh:mm')}"></label></div>
+								<div class="col-5">Autor: <label th:text="${interacao.usuario.nome}"></label></div>
 							</div>
 							<div class="row">
-								<div class="col-12" th:text="${iteracao.mensagem}">
+								<div class="col-12" th:text="${interacao.mensagem}">
 									Lorem Ipsum is simply dummy text of the printing and typesetting industry.
 							Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
 								</div>

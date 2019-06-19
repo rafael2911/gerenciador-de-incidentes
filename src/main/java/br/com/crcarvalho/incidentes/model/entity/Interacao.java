@@ -16,7 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
-public class Iteracao {
+public class Interacao {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class Iteracao {
 	@JoinColumn(name="usuario")
 	private Usuario usuario;
 	
-	public Iteracao() {
+	public Interacao() {
 		this.data = LocalDateTime.now();
 	}
 	
