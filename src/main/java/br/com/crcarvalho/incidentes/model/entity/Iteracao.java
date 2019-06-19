@@ -34,7 +34,11 @@ public class Iteracao {
 	@ManyToOne
 	@JoinColumn(name="usuario")
 	private Usuario usuario;
-
+	
+	public Iteracao() {
+		this.data = LocalDateTime.now();
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -55,16 +59,17 @@ public class Iteracao {
 		return data;
 	}
 
-	public void setData(LocalDateTime data) {
-		this.data = data;
-	}
-
 	public Usuario getUsuario() {
 		return usuario;
 	}
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	@Override
+	public String toString() {
+		return "Iteracao [id=" + id + ", mensagem=" + mensagem + ", data=" + data + ", usuario=" + usuario.getEmail() + "]";
 	}
 	
 }

@@ -18,6 +18,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -71,6 +73,7 @@ public class Chamado {
 	private Usuario atendente;
 	
 	@OneToMany
+	@Cascade(CascadeType.MERGE)
 	private List<Iteracao> iteracoes;
 	
 	@ManyToOne

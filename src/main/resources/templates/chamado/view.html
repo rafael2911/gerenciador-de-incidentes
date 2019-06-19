@@ -67,10 +67,11 @@
 				</table>
 				<div class="row">
 					<div class="col-sm-12">
-						<form action="">
+						<form action="#" th:action="@{'/chamado/'+${chamado.id}+'/interagir/'(form)}" th:object="${iteracao}" method="post">
 							<div class="form-group">
 								<label>Mensagem</label>
-								<textarea rows="5" class="form-control"></textarea>
+								<textarea th:field="*{mensagem}" name="mensagem" rows="5" class="form-control"></textarea>
+								<div th:if="${#fields.hasErrors('mensagem')}" th:errors="*{mensagem}" class="label alert-danger"></div>
 							</div>
 							<div class="text-right">
 								<button type="submit" class="btn btn-sm btn-primary">Enviar</button>
@@ -84,7 +85,7 @@
 						<td class="col-sm-12">
 							<div class="row">
 								<div class="col-2">N° <label th:text="${iteracao.id}"></label></div>
-								<div class="col-5">Data: <label th:text="${iteracao.data}"></label></div>
+								<div class="col-5">Data: <label th:text="${#temporals.format(iteracao.data, 'dd/MM/yyyy hh:mm')}"></label></div>
 								<div class="col-5">Autor: <label th:text="${iteracao.usuario.nome}"></label></div>
 							</div>
 							<div class="row">
