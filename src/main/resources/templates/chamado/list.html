@@ -39,7 +39,7 @@
 					<td th:text="${chamado.status}">status</td>
 					<td th:text="${#temporals.format(chamado.dataAbertura, 'dd/MM/yyyy')}">data</td>
 					<td th:text="${chamado.requerente.nome}">requerente</td>
-					<td th:text="${chamado.atendente} ? #{chamado.atendente.nome} : ''">tecnico</td>
+					<td th:text="${chamado.atendente} ? ${chamado.atendente.nome} : ''">tecnico</td>
 					<td th:text="${chamado.categoria.descricao}">categoria</td>
 					<td>
 						<a th:href="@{'/chamado/detalhe/'+${chamado.id}}+'/'" href="#" class="btn btn-primary btn-sm">

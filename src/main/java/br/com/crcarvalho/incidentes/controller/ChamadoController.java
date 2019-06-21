@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.crcarvalho.incidentes.model.entity.Chamado;
 import br.com.crcarvalho.incidentes.model.entity.Interacao;
+import br.com.crcarvalho.incidentes.model.entity.StatusChamado;
 import br.com.crcarvalho.incidentes.model.entity.Usuario;
 import br.com.crcarvalho.incidentes.model.repository.CategoriaRepository;
 import br.com.crcarvalho.incidentes.model.repository.ChamadoRepository;
@@ -98,5 +99,26 @@ public class ChamadoController {
 		chamadoRepository.save(chamado);
 		
 		return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
+	}
+	
+	@GetMapping("{idChamado}/atender")
+	public ModelAndView atenderChamado(@PathVariable("idChamado") Long idChamado, RedirectAttributes attr, @AuthenticationPrincipal Usuario usuario) {
+		
+		Chamado chamado = chamadoRepository.findOne(idChamado);
+		
+		if(chamado.getAtendente() != null) {
+			attr.addFlashAttribute("erro", "Chamado já está sendo atendido.");
+			
+			return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
+		}
+		
+		chamado.setAtendente(usuario);
+		chamado.setStatus(StatusChamado.EM_ATENDIMENTO);
+		chamadoRepository.save(chamado);
+		
+		attr.addFlashAttribute("message", "Chamado atualizado com sucesso.");
+		
+		return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
+		
 	}
 }

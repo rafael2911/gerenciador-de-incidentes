@@ -1,5 +1,5 @@
 package br.com.crcarvalho.incidentes.model.entity;
 
 public enum StatusChamado {
-	ABERTO, PENDENTE, CONCLUIDO, ENCERRADO;
+	ABERTO, EM_ATENDIMENTO, CONCLUIDO, ENCERRADO;
 }

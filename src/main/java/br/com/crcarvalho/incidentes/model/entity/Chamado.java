@@ -165,6 +165,11 @@ public class Chamado {
 	}
 
 	public void setAtendente(Usuario atendente) {
+		
+		if(!atendente.getRoles().contains(new Role("ROLE_TECNICO"))) {
+			throw new AccessDeniedException("Somente usuários com o perfil TÉCNICO podem abrir chamados.");
+		}
+		
 		this.atendente = atendente;
 	}
 
