@@ -79,6 +79,12 @@ public class ChamadoController {
 		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
 		
+		chamado.setDescricao(chamado.getDescricao().replace("\r\n", "<br />"));
+		
+		for (Interacao i : chamado.getInteracoes()) {
+			i.setMensagem(i.getMensagem().replace("\r\n", "<br />"));
+		}
+		
 		return new ModelAndView("chamado/view", "chamado", chamado);
 	}
 	
@@ -88,7 +94,6 @@ public class ChamadoController {
 		if(result.hasErrors()) {
 			return new ModelAndView("chamado/view", "chamado", chamadoRepository.findOne(idChamado));
 		}
-		
 		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
 		
