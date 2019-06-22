@@ -51,11 +51,8 @@
 		    </ul>
 		    <ul class="navbar-nav mr-rigth">
 		    	<li class="nav-item dropdown dropleft">
-			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          <!--
-			          <security:authentication property="principal" var="usuario" />
-					  ${usuario.nome }
-					   -->
+			        <a th:text="${#authentication.principal.nome+' '+#authentication.principal.sobrenome}" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			          
 			        </a>
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 			          <a class="dropdown-item" href='<c:url value="/logout" />'>Sair</a>
