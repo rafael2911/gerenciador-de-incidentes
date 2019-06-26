@@ -3,9 +3,13 @@ insert into role (nome) values('ROLE_TECNICO');
 insert into role (nome) values('ROLE_USER');
 
 insert into usuario (email, nome, senha, sobrenome, status) values('rafael@admin.com', 'Rafael', '$2a$10$8d4z2ydQARpNsOKVQZF4gOt57iZHhsDMBPqhS/b8GApumuGMZ1e46', 'Carvalho', 'ATIVO');
+insert into usuario (email, nome, senha, sobrenome, status) values('carlos@tecnico.com', 'Carlos', '$2a$10$Tv5MDY2QfBF6RUVL/7cxeOwOMf.POXUjEsTsa2S9F2x3JKCpk/6t6', 'Carvalho', 'ATIVO');
+insert into usuario (email, nome, senha, sobrenome, status) values('ferreira@user.com', 'Ferreira', '$2a$10$fHwts2XXVPMbFU7RPM4xCO2A66sGbq0Fb3NGG6Cnrq5uYQaE3sDPe', 'Carvalho', 'ATIVO');
 
 insert into usuario_roles(usuario_email, roles_nome) values ('rafael@admin.com', 'ROLE_ADMIN');
 insert into usuario_roles(usuario_email, roles_nome) values('rafael@admin.com', 'ROLE_USER');
+insert into usuario_roles(usuario_email, roles_nome) values('carlos@tecnico.com', 'ROLE_TECNICO');
+insert into usuario_roles(usuario_email, roles_nome) values('ferreira@user.com', 'ROLE_USER');
 
 insert into categoria(descricao) values('Email');
 insert into categoria(descricao) values('Relatórios');

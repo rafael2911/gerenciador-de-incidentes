@@ -16,6 +16,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.crcarvalho.incidentes.model.entity.Chamado;
 import br.com.crcarvalho.incidentes.model.entity.Interacao;
+import br.com.crcarvalho.incidentes.model.entity.Role;
 import br.com.crcarvalho.incidentes.model.entity.StatusChamado;
 import br.com.crcarvalho.incidentes.model.entity.Usuario;
 import br.com.crcarvalho.incidentes.model.repository.CategoriaRepository;
@@ -89,13 +90,18 @@ public class ChamadoController {
 	}
 	
 	@PostMapping(value = "{idChamado}/interagir", params = "form")
-	public ModelAndView registraInteracao(@Valid Interacao interacao, BindingResult result ,@PathVariable("idChamado") Long idChamado, @AuthenticationPrincipal Usuario usuario) {
+	public ModelAndView registraInteracao(@Valid Interacao interacao, BindingResult result, RedirectAttributes attr,@PathVariable("idChamado") Long idChamado, @AuthenticationPrincipal Usuario usuario) {
 		
 		if(result.hasErrors()) {
 			return new ModelAndView("chamado/view", "chamado", chamadoRepository.findOne(idChamado));
 		}
 		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
+		
+		if(!usuarioPodeInteragir(chamado, usuario)) {
+			attr.addFlashAttribute("erro", "Usuário não pode interagir no chamado!");
+			return new ModelAndView("redirect:/chamado");
+		}
 		
 		interacao.setUsuario(usuario);
 		
@@ -105,7 +111,7 @@ public class ChamadoController {
 		
 		return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
 	}
-	
+
 	@GetMapping("{idChamado}/atender")
 	public ModelAndView atenderChamado(@PathVariable("idChamado") Long idChamado, RedirectAttributes attr, @AuthenticationPrincipal Usuario usuario) {
 		
@@ -126,4 +132,23 @@ public class ChamadoController {
 		return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
 		
 	}
+	
+	private boolean usuarioPodeInteragir(Chamado chamado, Usuario usuario) {
+		if(usuario.getRoles().contains(new Role("ROLE_ADMIN"))) {
+			return true;
+		}
+		
+		if(chamado.getRequerente().equals(usuario)) {
+			return true;
+		}
+		
+		if(chamado.getAtendente() != null) {
+			if(chamado.getAtendente().equals(usuario)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 }
