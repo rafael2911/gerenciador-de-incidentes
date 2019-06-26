@@ -33,7 +33,7 @@ public class UsuarioController {
 		return new ModelAndView("usuario/list", "usuarios", usuarios);
 	}
 	
-	@GetMapping("cadastro")
+	@GetMapping("novo")
 	public ModelAndView form(@ModelAttribute Usuario usuario) {
 		
 		return new ModelAndView("usuario/form");
