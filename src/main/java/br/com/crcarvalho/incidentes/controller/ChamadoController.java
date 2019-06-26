@@ -76,9 +76,14 @@ public class ChamadoController {
 	}
 	
 	@GetMapping("detalhe/{idChamado}")
-	public ModelAndView detalhe(@PathVariable("idChamado") Long idChamado, @ModelAttribute Interacao interacao) {
+	public ModelAndView detalhe(@PathVariable("idChamado") Long idChamado, RedirectAttributes attr, @AuthenticationPrincipal Usuario usuario, @ModelAttribute Interacao interacao) {
 		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
+		
+		if(!usuarioPodeAcessar(chamado, usuario)) {
+			attr.addFlashAttribute("erro", "Usuário não pode visualizar chamado!");
+			return new ModelAndView("redirect:/chamado");
+		}
 		
 		chamado.setDescricao(chamado.getDescricao().replace("\r\n", "<br />"));
 		
@@ -100,7 +105,7 @@ public class ChamadoController {
 		
 		if(!usuarioPodeInteragir(chamado, usuario)) {
 			attr.addFlashAttribute("erro", "Usuário não pode interagir no chamado!");
-			return new ModelAndView("redirect:/chamado");
+			return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
 		}
 		
 		interacao.setUsuario(usuario);
@@ -146,6 +151,18 @@ public class ChamadoController {
 			if(chamado.getAtendente().equals(usuario)) {
 				return true;
 			}
+		}
+		
+		return false;
+	}
+	
+	private boolean usuarioPodeAcessar(Chamado chamado, Usuario usuario) {
+		if(usuario.getRoles().contains(new Role("ROLE_ADMIN")) || usuario.getRoles().contains(new Role("ROLE_TECNICO"))) {
+			return true;
+		}
+		
+		if(chamado.getRequerente().equals(usuario)) {
+			return true;
 		}
 		
 		return false;
