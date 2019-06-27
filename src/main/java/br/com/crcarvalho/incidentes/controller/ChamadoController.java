@@ -1,5 +1,7 @@
 package br.com.crcarvalho.incidentes.controller;
 
+import java.time.LocalDateTime;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import br.com.crcarvalho.incidentes.model.entity.Chamado;
 import br.com.crcarvalho.incidentes.model.entity.Interacao;
 import br.com.crcarvalho.incidentes.model.entity.Role;
 import br.com.crcarvalho.incidentes.model.entity.StatusChamado;
+import br.com.crcarvalho.incidentes.model.entity.TipoInteracao;
 import br.com.crcarvalho.incidentes.model.entity.Usuario;
 import br.com.crcarvalho.incidentes.model.repository.CategoriaRepository;
 import br.com.crcarvalho.incidentes.model.repository.ChamadoRepository;
@@ -95,21 +98,39 @@ public class ChamadoController {
 			i.setMensagem(i.getMensagem().replace("\r\n", "<br />"));
 		}
 		
-		return new ModelAndView("chamado/view", "chamado", chamado);
+		ModelAndView view = new ModelAndView("chamado/view");
+		view.addObject("chamado", chamado);
+		view.addObject("tipoInteracoes", TipoInteracao.values());
+		
+		return view;
 	}
 	
 	@PostMapping(value = "{idChamado}/interagir", params = "form")
 	public ModelAndView registraInteracao(@Valid Interacao interacao, BindingResult result, RedirectAttributes attr,@PathVariable("idChamado") Long idChamado, @AuthenticationPrincipal Usuario usuario) {
 		
-		if(result.hasErrors()) {
-			return new ModelAndView("chamado/view", "chamado", chamadoRepository.findOne(idChamado));
-		}
-		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
+		
+		if(result.hasErrors()) {
+			ModelAndView view = new ModelAndView("chamado/view");
+			view.addObject("chamado", chamado);
+			view.addObject("tipoInteracoes", TipoInteracao.values());
+			
+			return view;
+		}		
 		
 		if(!usuarioPodeInteragir(chamado, usuario)) {
 			attr.addFlashAttribute("erro", "Usuário não pode interagir no chamado!");
 			return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
+		}
+		
+		if(interacao.getTipoInteracao().equals(TipoInteracao.CANCELADO)) {
+			chamado.setDataEncerramento(LocalDateTime.now());
+			chamado.setStatus(StatusChamado.CANCELADO);	
+		}
+		
+		if(interacao.getTipoInteracao().equals(TipoInteracao.CONCLUIDO)) {
+			chamado.setDataEncerramento(LocalDateTime.now());
+			chamado.setStatus(StatusChamado.CONCLUIDO);	
 		}
 		
 		interacao.setUsuario(usuario);
@@ -143,6 +164,14 @@ public class ChamadoController {
 	}
 	
 	private boolean usuarioPodeInteragir(Chamado chamado, Usuario usuario) {
+		if(chamado.getStatus().equals(StatusChamado.CANCELADO)) {
+			return false;
+		}
+		
+		if(chamado.getStatus().equals(StatusChamado.CONCLUIDO)) {
+			return false;
+		}
+		
 		if(usuario.getRoles().contains(new Role("ROLE_ADMIN"))) {
 			return true;
 		}
