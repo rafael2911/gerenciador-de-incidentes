@@ -32,7 +32,6 @@ public class ChamadoTests {
 		chamado.setOrigem(new Origem(1L, "Telefone"));
 		chamado.setCategoria(new Categoria(1L, "Office"));
 		chamado.setSla(new Sla("4_DIAS", 4));
-		chamado.setStatus(StatusChamado.ABERTO);
 		
 		assertEquals(true, chamado.getRequerente().getRoles().contains(new Role("USER")));
 		

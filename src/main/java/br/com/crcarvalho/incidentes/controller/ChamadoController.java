@@ -141,7 +141,7 @@ public class ChamadoController {
 	}
 	
 	private boolean usuarioPodeAcessar(Chamado chamado, Usuario usuario) {
-		if(usuario.getRoles().contains(new Role("ROLE_ADMIN")) || usuario.getRoles().contains(new Role("ROLE_TECNICO"))) {
+		if(usuario.possuiRole("ROLE_ADMIN") || usuario.possuiRole("ROLE_TECNICO")) {
 			return true;
 		}
 		

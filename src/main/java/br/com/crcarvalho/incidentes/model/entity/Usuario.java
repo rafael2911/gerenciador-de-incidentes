@@ -169,4 +169,11 @@ public class Usuario implements UserDetails {
 				+ ", status=" + status + ", roles=" + roles + "]";
 	}
 
+	public boolean possuiRole(String role) {
+		if(this.roles.contains(new Role(role)))
+			return true;
+		
+		return false;
+	}
+
 }

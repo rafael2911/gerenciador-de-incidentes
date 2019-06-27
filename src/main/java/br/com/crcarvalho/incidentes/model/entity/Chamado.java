@@ -206,7 +206,7 @@ public class Chamado {
 			return false;
 		}
 		
-		if(interacao.getUsuario().getRoles().contains(new Role("ROLE_ADMIN"))) {
+		if(interacao.getUsuario().possuiRole("ROLE_ADMIN")) {
 			return true;
 		}
 		
