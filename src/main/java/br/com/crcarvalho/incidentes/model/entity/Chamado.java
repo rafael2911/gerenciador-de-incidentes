@@ -126,10 +126,6 @@ public class Chamado {
 		return status;
 	}
 
-	public void setStatus(StatusChamado statusChamado) {
-		this.status = statusChamado;
-	}
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -164,21 +160,8 @@ public class Chamado {
 		return atendente;
 	}
 
-	public void setAtendente(Usuario atendente) {
-		
-		if(!atendente.getRoles().contains(new Role("ROLE_TECNICO"))) {
-			throw new AccessDeniedException("Somente usuários com o perfil TÉCNICO podem abrir chamados.");
-		}
-		
-		this.atendente = atendente;
-	}
-
 	public List<Interacao> getInteracoes() {
 		return Collections.unmodifiableList(interacoes);
-	}
-	
-	public void adicionaInteracao(Interacao interacao) {
-		this.interacoes.add(interacao);
 	}
 
 	public Sla getSla() {
@@ -187,6 +170,65 @@ public class Chamado {
 
 	public void setSla(Sla sla) {
 		this.sla = sla;
+	}
+	
+	public void setAtendente(Usuario atendente) {
+		
+		if(!atendente.getRoles().contains(new Role("ROLE_TECNICO"))) {
+			throw new AccessDeniedException("Somente usuários com o perfil TÉCNICO podem abrir chamados.");
+		}
+		
+		this.atendente = atendente;
+		this.status = StatusChamado.EM_ATENDIMENTO;
+	}
+	
+	public void adicionaInteracao(Interacao interacao) {
+		if(!usuarioPodeInteragir(interacao)) {
+			throw new AccessDeniedException("Usuário não pode registrar interação no chamado.");
+		}
+		
+		// Verifica o se o chamado deve ser cancelado ou concluido
+		chamadoDeveSerEncerradoOuCancelado(interacao);
+		
+		this.interacoes.add(interacao);
+	}
+	
+	private boolean usuarioPodeInteragir(Interacao interacao) {
+		if(this.getStatus().equals(StatusChamado.CANCELADO)) {
+			return false;
+		}
+		
+		if(this.getStatus().equals(StatusChamado.CONCLUIDO)) {
+			return false;
+		}
+		
+		if(interacao.getUsuario().getRoles().contains(new Role("ROLE_ADMIN"))) {
+			return true;
+		}
+		
+		if(this.getRequerente().equals(interacao.getUsuario())) {
+			return true;
+		}
+		
+		if(this.getAtendente() != null) {
+			if(this.getAtendente().equals(interacao.getUsuario())) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	private void chamadoDeveSerEncerradoOuCancelado(Interacao interacao) {
+		if(interacao.getTipoInteracao().equals(TipoInteracao.CANCELADO)) {
+			this.setDataEncerramento(LocalDateTime.now());
+			this.status = StatusChamado.CANCELADO;	
+		}
+		
+		if(interacao.getTipoInteracao().equals(TipoInteracao.CONCLUIDO)) {
+			this.setDataEncerramento(LocalDateTime.now());
+			this.status = StatusChamado.CONCLUIDO;	
+		}
 	}
 
 }

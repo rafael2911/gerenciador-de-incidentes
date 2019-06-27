@@ -1,7 +1,5 @@
 package br.com.crcarvalho.incidentes.controller;
 
-import java.time.LocalDateTime;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import br.com.crcarvalho.incidentes.model.entity.Chamado;
 import br.com.crcarvalho.incidentes.model.entity.Interacao;
 import br.com.crcarvalho.incidentes.model.entity.Role;
-import br.com.crcarvalho.incidentes.model.entity.StatusChamado;
 import br.com.crcarvalho.incidentes.model.entity.TipoInteracao;
 import br.com.crcarvalho.incidentes.model.entity.Usuario;
 import br.com.crcarvalho.incidentes.model.repository.CategoriaRepository;
@@ -116,22 +113,7 @@ public class ChamadoController {
 			view.addObject("tipoInteracoes", TipoInteracao.values());
 			
 			return view;
-		}		
-		
-		if(!usuarioPodeInteragir(chamado, usuario)) {
-			attr.addFlashAttribute("erro", "Usuário não pode interagir no chamado!");
-			return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
-		}
-		
-		if(interacao.getTipoInteracao().equals(TipoInteracao.CANCELADO)) {
-			chamado.setDataEncerramento(LocalDateTime.now());
-			chamado.setStatus(StatusChamado.CANCELADO);	
-		}
-		
-		if(interacao.getTipoInteracao().equals(TipoInteracao.CONCLUIDO)) {
-			chamado.setDataEncerramento(LocalDateTime.now());
-			chamado.setStatus(StatusChamado.CONCLUIDO);	
-		}
+		}			
 		
 		interacao.setUsuario(usuario);
 		
@@ -154,39 +136,13 @@ public class ChamadoController {
 		}
 		
 		chamado.setAtendente(usuario);
-		chamado.setStatus(StatusChamado.EM_ATENDIMENTO);
+		
 		chamadoRepository.save(chamado);
 		
 		attr.addFlashAttribute("message", "Chamado atualizado com sucesso.");
 		
 		return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
 		
-	}
-	
-	private boolean usuarioPodeInteragir(Chamado chamado, Usuario usuario) {
-		if(chamado.getStatus().equals(StatusChamado.CANCELADO)) {
-			return false;
-		}
-		
-		if(chamado.getStatus().equals(StatusChamado.CONCLUIDO)) {
-			return false;
-		}
-		
-		if(usuario.getRoles().contains(new Role("ROLE_ADMIN"))) {
-			return true;
-		}
-		
-		if(chamado.getRequerente().equals(usuario)) {
-			return true;
-		}
-		
-		if(chamado.getAtendente() != null) {
-			if(chamado.getAtendente().equals(usuario)) {
-				return true;
-			}
-		}
-		
-		return false;
 	}
 	
 	private boolean usuarioPodeAcessar(Chamado chamado, Usuario usuario) {

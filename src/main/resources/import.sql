@@ -26,8 +26,8 @@ insert into sla(descricao, dias) values('4_DIAS', 4);
 
 insert into chamado (titulo, descricao, data_abertura, status, categoria, origem, requerente) values('Primeiro Chamado', 'Chamado realizado para testar a listagem', 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770e05000007e306110c292400b71b0078', 'ABERTO', 4, 1, 'rafael@admin.com')
 
-insert into interacao (mensagem, data, usuario) values ('Teste primeira iteracao', 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770e05000007e306110c292400b71b0078', 'rafael@admin.com')
-insert into interacao (mensagem, data, usuario) values ('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.', 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770e05000007e306110c292400b71b0078', 'rafael@admin.com')
+insert into interacao (mensagem, data, usuario, tipo_interacao) values ('Teste primeira iteracao', 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770e05000007e306110c292400b71b0078', 'rafael@admin.com', 'MENSAGEM')
+insert into interacao (mensagem, data, usuario, tipo_interacao) values ('Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s.', 'aced00057372000d6a6176612e74696d652e536572955d84ba1b2248b20c00007870770e05000007e306110c292400b71b0078', 'rafael@admin.com', 'MENSAGEM')
 insert into chamado_interacoes (chamado_id, interacoes_id) values(1,1);
 insert into chamado_interacoes (chamado_id, interacoes_id) values(1,2);
 
