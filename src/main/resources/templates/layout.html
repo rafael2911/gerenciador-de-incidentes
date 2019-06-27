@@ -20,7 +20,7 @@
 		
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item dropdown">
+		      <li sec:authorize="hasRole('ROLE_ADMIN') OR hasRole('ROLE_TECNICO')" class="nav-item dropdown">
 		        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		          Cadastros
 		        </a>
@@ -32,22 +32,6 @@
 		      <li class="nav-item">
 		        <a class="nav-link" href='<c:url value="/tarefa/form" />'>Cadastro de Tarefas</a>
 		      </li>
-		      <!-- 
-		      <security:authorize access="hasRole('ROLE_ADMIN')">
-			      <li class="nav-item dropdown">
-			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			          Usuario
-			        </a>
-			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			          <a class="dropdown-item" href='<c:url value="/usuario/list" />'>Listagem</a>
-			          <a class="dropdown-item" href='<c:url value="/usuario/form" />'>Cadastro</a>
-			        </div>
-			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href='<c:url value="/role/form" />'>Role</a>
-			      </li>
-			  </security:authorize>
-			   -->
 		    </ul>
 		    <ul class="navbar-nav mr-rigth">
 		    	<li class="nav-item dropdown dropleft">

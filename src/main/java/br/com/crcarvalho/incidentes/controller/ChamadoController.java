@@ -37,9 +37,13 @@ public class ChamadoController {
 	private OrigemRepository origemRepository;
 	
 	@GetMapping
-	public ModelAndView index() {
+	public ModelAndView index(@AuthenticationPrincipal Usuario usuario) {
 		
-		return new ModelAndView("chamado/list", "chamados", chamadoRepository.findAll());
+		if(usuario.getRoles().contains(new Role("ROLE_ADMIN")) || usuario.getRoles().contains(new Role("ROLE_TECNICO"))) {
+			return new ModelAndView("chamado/list", "chamados", chamadoRepository.findAll());
+		}
+		
+		return new ModelAndView("redirect:/");
 	}
 	
 	@GetMapping("novo")
