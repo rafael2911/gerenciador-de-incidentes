@@ -56,7 +56,7 @@ public class Interacao {
 	}
 
 	public String getMensagem() {
-		return mensagem;
+		return (mensagem != null) ? mensagem.replace("\r\n", "<br />") : mensagem;
 	}
 
 	public void setMensagem(String mensagem) {

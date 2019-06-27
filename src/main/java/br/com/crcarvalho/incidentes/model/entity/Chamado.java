@@ -103,7 +103,7 @@ public class Chamado {
 	}
 
 	public String getDescricao() {
-		return descricao;
+		return (descricao != null) ? descricao.replace("\r\n", "<br />") : descricao;
 	}
 
 	public void setDescricao(String descricao) {
@@ -173,6 +173,10 @@ public class Chamado {
 	}
 	
 	public void setAtendente(Usuario atendente) {
+		
+		if(this.getAtendente() != null) {
+			throw new AccessDeniedException("Chamado já possui um atendente.");
+		}
 		
 		if(!atendente.getRoles().contains(new Role("ROLE_TECNICO"))) {
 			throw new AccessDeniedException("Somente usuários com o perfil TÉCNICO podem abrir chamados.");

@@ -89,12 +89,6 @@ public class ChamadoController {
 			return new ModelAndView("redirect:/chamado");
 		}
 		
-		chamado.setDescricao(chamado.getDescricao().replace("\r\n", "<br />"));
-		
-		for (Interacao i : chamado.getInteracoes()) {
-			i.setMensagem(i.getMensagem().replace("\r\n", "<br />"));
-		}
-		
 		ModelAndView view = new ModelAndView("chamado/view");
 		view.addObject("chamado", chamado);
 		view.addObject("tipoInteracoes", TipoInteracao.values());
@@ -129,15 +123,16 @@ public class ChamadoController {
 		
 		Chamado chamado = chamadoRepository.findOne(idChamado);
 		
-		if(chamado.getAtendente() != null) {
-			attr.addFlashAttribute("erro", "Chamado já está sendo atendido.");
+		try {
+			chamado.setAtendente(usuario);
+			
+			chamadoRepository.save(chamado);
+			
+		}catch (RuntimeException ex) {
+			attr.addFlashAttribute("erro", ex.getMessage());
 			
 			return new ModelAndView("redirect:/chamado/detalhe/" + idChamado);
 		}
-		
-		chamado.setAtendente(usuario);
-		
-		chamadoRepository.save(chamado);
 		
 		attr.addFlashAttribute("message", "Chamado atualizado com sucesso.");
 		
