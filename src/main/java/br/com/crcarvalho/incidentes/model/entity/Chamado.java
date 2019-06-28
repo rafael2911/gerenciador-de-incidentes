@@ -118,10 +118,6 @@ public class Chamado {
 		return dataEncerramento;
 	}
 
-	public void setDataEncerramento(LocalDateTime dataEncerramento) {
-		this.dataEncerramento = dataEncerramento;
-	}
-
 	public StatusChamado getStatus() {
 		return status;
 	}
@@ -225,12 +221,12 @@ public class Chamado {
 	
 	private void chamadoDeveSerEncerradoOuCancelado(Interacao interacao) {
 		if(interacao.getTipoInteracao().equals(TipoInteracao.CANCELADO)) {
-			this.setDataEncerramento(LocalDateTime.now());
+			this.dataEncerramento = LocalDateTime.now();
 			this.status = StatusChamado.CANCELADO;	
 		}
 		
 		if(interacao.getTipoInteracao().equals(TipoInteracao.CONCLUIDO)) {
-			this.setDataEncerramento(LocalDateTime.now());
+			this.dataEncerramento = LocalDateTime.now();
 			this.status = StatusChamado.CONCLUIDO;	
 		}
 	}
