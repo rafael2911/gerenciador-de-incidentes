@@ -16,7 +16,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.com.crcarvalho.incidentes.model.entity.Chamado;
 import br.com.crcarvalho.incidentes.model.entity.Interacao;
-import br.com.crcarvalho.incidentes.model.entity.Role;
 import br.com.crcarvalho.incidentes.model.entity.TipoInteracao;
 import br.com.crcarvalho.incidentes.model.entity.Usuario;
 import br.com.crcarvalho.incidentes.model.repository.CategoriaRepository;
@@ -39,11 +38,11 @@ public class ChamadoController {
 	@GetMapping
 	public ModelAndView index(@AuthenticationPrincipal Usuario usuario) {
 		
-		if(usuario.getRoles().contains(new Role("ROLE_ADMIN")) || usuario.getRoles().contains(new Role("ROLE_TECNICO"))) {
+		if(usuarioPodeAcessar(usuario)) {
 			return new ModelAndView("chamado/list", "chamados", chamadoRepository.findAll());
 		}
 		
-		return new ModelAndView("redirect:/");
+		return new ModelAndView("chamado/list", "chamados", chamadoRepository.findByRequerente(usuario));
 	}
 	
 	@GetMapping("novo")
@@ -140,8 +139,16 @@ public class ChamadoController {
 		
 	}
 	
-	private boolean usuarioPodeAcessar(Chamado chamado, Usuario usuario) {
+	private boolean usuarioPodeAcessar(Usuario usuario) {
 		if(usuario.possuiRole("ROLE_ADMIN") || usuario.possuiRole("ROLE_TECNICO")) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean usuarioPodeAcessar(Chamado chamado, Usuario usuario) {
+		if(usuarioPodeAcessar(usuario)) {
 			return true;
 		}
 		
