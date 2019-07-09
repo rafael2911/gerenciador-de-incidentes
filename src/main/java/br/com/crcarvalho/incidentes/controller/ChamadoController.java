@@ -36,13 +36,14 @@ public class ChamadoController {
 	private OrigemRepository origemRepository;
 	
 	@GetMapping
-	public ModelAndView index(@AuthenticationPrincipal Usuario usuario) {
-		
-		if(usuarioPodeAcessar(usuario)) {
-			return new ModelAndView("chamado/list", "chamados", chamadoRepository.findAll());
-		}
+	public ModelAndView chamadosDoUsuario(@AuthenticationPrincipal Usuario usuario) {
 		
 		return new ModelAndView("chamado/list", "chamados", chamadoRepository.findByRequerente(usuario));
+	}
+	
+	@GetMapping("todos")
+	public ModelAndView todosOsChamados() {
+		return new ModelAndView("chamado/list", "chamados", chamadoRepository.findAll());
 	}
 	
 	@GetMapping("novo")
@@ -139,16 +140,8 @@ public class ChamadoController {
 		
 	}
 	
-	private boolean usuarioPodeAcessar(Usuario usuario) {
-		if(usuario.possuiRole("ROLE_ADMIN") || usuario.possuiRole("ROLE_TECNICO")) {
-			return true;
-		}
-		
-		return false;
-	}
-	
 	private boolean usuarioPodeAcessar(Chamado chamado, Usuario usuario) {
-		if(usuarioPodeAcessar(usuario)) {
+		if(usuario.possuiRole("ROLE_ADMIN") || usuario.possuiRole("ROLE_TECNICO")) {
 			return true;
 		}
 		
