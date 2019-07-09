@@ -16,7 +16,7 @@ public class ChamadoTests {
 	
 	@Test
 	public void chamadoSoPodeSerCriadoPorUsuarioComPerfilUser() {
-		Role user = new Role("USER");
+		Role user = new Role("ROLE_USER");
 		
 		Usuario usuario = new Usuario();
 		usuario.setEmail("rafael@rafael.com");
@@ -33,13 +33,13 @@ public class ChamadoTests {
 		chamado.setCategoria(new Categoria(1L, "Office"));
 		chamado.setSla(new Sla("4_DIAS", 4));
 		
-		assertEquals(true, chamado.getRequerente().getRoles().contains(new Role("USER")));
+		assertEquals(true, chamado.getRequerente().possuiRole("ROLE_USER"));
 		
 	}
 	
 	@Test(expected=AccessDeniedException.class)
 	public void chamadoNaoPodeSerCriadoPorUsuarioSemPerfilUser() {
-		Role admin = new Role("ADMIN");
+		Role admin = new Role("ROLE_ADMIN");
 		
 		Usuario usuario = new Usuario();
 		usuario.setEmail("rafael@rafael.com");
@@ -56,7 +56,7 @@ public class ChamadoTests {
 		chamado.setCategoria(new Categoria(1L, "Office"));
 		chamado.setSla(new Sla("4_DIAS", 4));
 		
-		assertEquals(false, chamado.getRequerente().getRoles().contains(new Role("USER")));
+		assertEquals(false, chamado.getRequerente().possuiRole("ROLE_USER"));
 		
 	}
 	
